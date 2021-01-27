@@ -1,0 +1,25 @@
+{
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run:electron": "cypress run --browser electron",
+    "cy:run:chrome": "cypress run --browser chrome",
+    "cy:run:firefox": "cypress run --browser firefox",
+    "report:clean": "rimraf reports/cucumber-html-report/* reports/cucumber-json-reports/*",
+    "cucumber:report:merge": "node cypress/e2e/utils/report.js"
+  },
+  "cypress-cucumber-preprocessor": {
+    "step_definitions": "cypress/ui/step_definitions/",
+    "cucumberJson": {
+      "generate": true,
+      "outputFolder": "reports/cucumber-json-reports",
+      "filePrefix": "",
+      "fileSuffix": ""
+    }
+  },
+  "devDependencies": {
+    "cypress": "^6.3.0",
+    "cypress-cucumber-preprocessor": "^4.0.0",
+    "multiple-cucumber-html-reporter": "^1.18.0",
+    "rimraf": "^3.0.2"
+  }
+}
