@@ -1,34 +1,45 @@
-import { Given, When, Then } from "cypress-cucumber-preprocessor/steps"
-import Util from "../utils/util.js"
+export default class Todos {
 
-const util = new Util()
+    submitTodo(todoDescription){
+        cy.get('input[data-id="input.text.description"]').type(todoDescription).should('have.value', todoDescription)
+        cy.get('form').submit()
+    }
 
-Given('the application is ready to use', () => {
-    cy.visit('/')
-    cy.get('h1[id="heading"]').invoke('text').should('eq', 'Tâches')
-})
+    verifyTodoIsCreated(todoNumber, todoDescription){
+        cy.get('li[data-id="todo-' + todoNumber + '"]').invoke('text').should('include', todoDescription)
+    }
 
-When('I submit a todo {string}', (todoDescription) => {
-    util.submitTodo(todoDescription)
-})
+    completeTodo(todoNumber){
+        cy.get('input[data-id="input.checkbox.done-' + todoNumber + '"]').check()
+    }
 
-Then('a new todo {int} should be created being {string}', (todoNumber, todoDescription) => {
-    util.verifyTodoIsCreated(todoNumber, todoDescription)
-})
+    verifyTodoIsCompleted(todoNumber){
+        cy.get('input[data-id="input.checkbox.done-' + todoNumber + '"]').should('be.checked')
+    }
 
-Given('an existing todo {int} being {string}', (todoNumber, todoDescription) => {
-    util.submitTodo(todoDescription)
-    util.verifyTodoIsCreated(todoNumber, todoDescription)
-})
+    verifyTodoIsNotCompleted(todoNumber){
+        cy.get('input[data-id="input.checkbox.done-' + todoNumber + '"]').should('not.be.checked')
+    }
 
-When('I complete the todo {int}', (todoNumber) => {
-    util.completeTodo(todoNumber)
-})
+    deleteTodo(todoNumber){
+        Cypress.on('uncaught:exception', (err, runnable) => {
+            return false
+        })
+        cy.get('button[data-id="button.remove_todo-' + todoNumber + '"]').click()
+    }
 
-Then('the todo {int} should be completed', (todoNumber) => {
-    util.verifyTodoIsCompleted(todoNumber)
-})
+    verifyTodoIsNotCatigorized(todoNumber){
+        cy.contains('span[data-id="category-' + todoNumber + '"]').should('not.exist')
+    }
 
-Then('the todo {int} should be uncompleted', (todoNumber) => {
-    util.verifyTodoIsNotCompleted(todoNumber)
-})
+    selectTodoCategory(category){
+        var categoryToSelect = category == 'professional' ? 'Professionnel' : 'Personnel'
+        cy.get('select[data-id="select.category"]').select(categoryToSelect)
+    }
+
+    verifyTodoHasCategory(todoNumber, todoCategory){
+        var category = todoCategory == 'professional' ? 'Professionnel' : 'Personnel'
+        cy.get('span[data-id="category-' + todoNumber + '"]').invoke('text').should('eq', category)
+    }
+
+}

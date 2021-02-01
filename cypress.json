@@ -3,5 +3,6 @@
     "integrationFolder": "cypress/ui",
     "testFiles": "**/*.feature",
     "video": false,
-    "screenshotsFolder": "reports/screenshots"
+    "screenshotsFolder": "reports/screenshots",
+    "chromeWebSecurity": false
 }

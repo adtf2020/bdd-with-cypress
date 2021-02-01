@@ -15,3 +15,18 @@ Feature: Todos
       Then the todo 2 should be completed
       And the todo 1 should be uncompleted
       And the todo 3 should be uncompleted
+
+   Scenario: I can remove a todo
+      Given an existing todo 1 being "Choisir le bon type de framework de test"
+      When I remove a todo 1
+      Then the todo 1 should be deleted
+   
+   Scenario: I can categorize some todos
+      When I submit a todo "Choisir un livre intéressant"
+      Then the todo 1 should not be categorized
+      When I submit a "private" todo "Marcher et faire du vélo avec mon chien"
+      Then the todo 2 should be "private"
+      When I submit a todo "Faire un câlin avec mon chat"
+      Then the todo 3 should be "private"
+      When I submit a "professional" todo "Automatiser un cas de test de plus"
+      Then the todo 4 should be "professional"
