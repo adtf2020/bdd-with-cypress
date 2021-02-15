@@ -29,4 +29,4 @@ Feature: Todos
       When I submit a todo "Faire un câlin avec mon chat"
       Then the todo 3 should be "private"
       When I submit a "professional" todo "Automatiser un cas de test de plus"
-      Then the todo 4 should be "professional"
+      Then the todo 4 should be "professional"	  

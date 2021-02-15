@@ -17,7 +17,7 @@
     }
   },
   "devDependencies": {
-    "cypress": "^6.3.0",
+    "cypress": "^6.4.0",
     "cypress-cucumber-preprocessor": "^4.0.0",
     "multiple-cucumber-html-reporter": "^1.18.0",
     "rimraf": "^3.0.2"

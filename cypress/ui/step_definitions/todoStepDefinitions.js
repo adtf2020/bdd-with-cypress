@@ -5,15 +5,7 @@ const sut = new Todos()
 
 Given('the application is ready to use', () => {
     cy.visit('/')
-    cy.get('h1[id="heading"]').invoke('text').should('eq', 'Tâches')
-})
-
-When('I submit a todo {string}', (todoDescription) => {
-    sut.submitTodo(todoDescription)
-})
-
-Then('a new todo {int} should be created being {string}', (todoNumber, todoDescription) => {
-    sut.verifyTodoIsCreated(todoNumber, todoDescription)
+    sut.verifyTheAppIsReady()
 })
 
 Given('an existing todo {int} being {string}', (todoNumber, todoDescription) => {
@@ -21,31 +13,25 @@ Given('an existing todo {int} being {string}', (todoNumber, todoDescription) => 
     sut.verifyTodoIsCreated(todoNumber, todoDescription)
 })
 
-When('I complete the todo {int}', (todoNumber) => {
-    sut.completeTodo(todoNumber)
-})
-
-Then('the todo {int} should be completed', (todoNumber) => {
-    sut.verifyTodoIsCompleted(todoNumber)
-})
-
-Then('the todo {int} should be uncompleted', (todoNumber) => {
-    sut.verifyTodoIsNotCompleted(todoNumber)
-})
-
-When('I remove a todo {int}', (todoNumber) => {
-    sut.deleteTodo(todoNumber)
-})
-
-Then('the todo {int} should not be categorized', (todoNumber) => {
-    sut.verifyTodoIsNotCatigorized(todoNumber)
-})
-
 When('I submit a {string} todo {string}', (todoCategory, todoDescription) => {
     sut.selectTodoCategory(todoCategory)
     sut.submitTodo(todoDescription)
 })
 
-Then('the todo {int} should be {string}', (todoNumber, todoCategory) => {
-    sut.verifyTodoHasCategory(todoNumber, todoCategory)
-})
+When('I submit a todo {string}', todoDescription => sut.submitTodo(todoDescription))
+
+Then('a new todo {int} should be created being {string}', (todoNumber, todoDescription) => sut.verifyTodoIsCreated(todoNumber, todoDescription))
+
+When('I complete the todo {int}', todoNumber => sut.completeTodo(todoNumber))
+
+Then('the todo {int} should be completed', todoNumber => sut.verifyTodoIsCompleted(todoNumber))
+
+Then('the todo {int} should be uncompleted', todoNumber => sut.verifyTodoIsNotCompleted(todoNumber))
+
+When('I remove a todo {int}', todoNumber => sut.deleteTodo(todoNumber))
+
+Then('the todo {int} should be deleted', todoNumber => sut.verifyTodoIsDeleted(todoNumber))
+
+Then('the todo {int} should not be categorized', todoNumber => sut.verifyTodoIsNotCatigorized(todoNumber))
+
+Then('the todo {int} should be {string}', (todoNumber, todoCategory) => sut.verifyTodoHasCategory(todoNumber, todoCategory))
