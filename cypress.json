@@ -1,0 +1,8 @@
+{
+    "baseUrl":"http://localhost:9090",
+    "integrationFolder": "cypress/ui",
+    "testFiles": "**/*.feature",
+    "video": false,
+    "screenshotsFolder": "reports/screenshots",
+    "chromeWebSecurity": false
+}
