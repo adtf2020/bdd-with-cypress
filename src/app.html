@@ -1,0 +1,28 @@
+<template>
+  <h1 id="heading">${heading}</h1>
+
+  <form submit.trigger="addTodo()">
+    <label>
+      <select value.bind="selectedCategory" data-id="select.category">
+        <option value="">Choisir...</option>
+        <option repeat.for="category of categories"
+                value.bind="category">
+          ${category}
+        </option>
+      </select>
+    </label>
+    <input type="text" value.bind="todoDescription" data-id="input.text.description" placeholder="Que faire ?" focus.one-way="true">
+    <button type="submit" disabled.bind="!todoDescription">Ajouter</button>
+  </form>
+
+  <ul>
+    <li repeat.for="todo of todos" data-id="todo-${$index + 1}">
+      <span if.bind="todo.category" data-id="category-${$index + 1}">${todo.category}</span>
+      <input type="checkbox" checked.bind="todo.done" data-id="input.checkbox.done-${$index + 1}">
+      <span css="text-decoration: ${todo.done ? 'line-through' : 'none'}">
+        ${todo.description}
+      </span>
+      <button click.trigger="removeTodo(todo)" data-id="button.remove_todo-${$index + 1}">Supprimer</button>
+    </li>
+  </ul>
+</template>

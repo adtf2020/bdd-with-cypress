@@ -1,0 +1,8 @@
+{
+    "baseUrl":"https://adtf2020-webapp.netlify.app/",
+    "integrationFolder": "cypress/ui",
+    "testFiles": "**/*.feature",
+    "video": false,
+    "screenshotsFolder": "reports/screenshots",
+    "chromeWebSecurity": false
+}
